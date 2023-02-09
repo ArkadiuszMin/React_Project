@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+.registerForm{
+    margin-top: 10px;
+    .form{
+        margin-left: 50px;
+        
+        display: flex;
+        flex-direction: column;
+        row-gap: 30px;
+
+        &_register{
+            font-family: 'Anton';
+            font-size: 50px;
+            color: green;
+        }
+        & input{
+            text-decoration: none;
+            border: solid gray 2px;
+            box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.4);
+            border-radius: 3px;
+            width: 70px;
+            height: 30px;
+            outline: none;
+            width: 300px;
+        }
+        &_box{
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
+
+            &-label{
+                font-family: 'Anton';
+                color: green;
+                font-size: 20px;
+            }
+        }
+    }
+
+}
