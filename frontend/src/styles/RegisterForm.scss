@@ -1,12 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 .registerForm{
     margin-top: 10px;
+    width: 100%;
     .form{
         margin-left: 50px;
-        
         display: flex;
         flex-direction: column;
-        row-gap: 30px;
+        row-gap: 20px;
+
+        
 
         &_register{
             font-family: 'Anton';
@@ -21,8 +23,23 @@
             width: 70px;
             height: 30px;
             outline: none;
-            width: 300px;
+            width: 25%;
         }
+
+        &_submit{
+            width: 25.5% !important;
+            color: white;
+            font-weight: bold;
+            background-color: green;
+            text-decoration: none;
+            box-shadow: 0 0 0 0 black !important;
+            cursor: pointer;
+
+            &:hover{
+                background-color: rgb(9, 158, 9);
+            }
+        }
+
         &_box{
             display: flex;
             flex-direction: column;
@@ -33,7 +50,20 @@
                 color: green;
                 font-size: 20px;
             }
+
+            &-input{
+                display: flex;
+                align-items: center;
+                column-gap: 10px;
+                
+                & p{
+                    color: red;
+                    font-weight: bold;
+                    display: contents;
+                }
+            }
         }
+        
     }
 
 }

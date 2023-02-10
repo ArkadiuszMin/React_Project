@@ -1,10 +1,14 @@
 import React from 'react';
 import '../styles/loginForm.scss'
 import { useForm } from 'react-hook-form'
-
+import { useNavigate } from 'react-router-dom';
 const LoginFormComponent = () => {
     const {register, handleSubmit} = useForm();
-    const onSubmit = data => console.log(data)
+    const navigate = useNavigate();
+    const onSubmit = (data) => {
+        console.log(data)
+        navigate("/")
+    }
 
     return (
         <div className="loginform">
