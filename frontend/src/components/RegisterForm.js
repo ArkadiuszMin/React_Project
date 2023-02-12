@@ -3,14 +3,23 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form'
 import '../styles/RegisterForm.scss'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import AuthService from '../services/AuthService';
 const RegisterFormComponent = () => {
     const {register, handleSubmit, formState: { errors }, watch} = useForm();
     const [diffPasswords, setDiffPasswords] = useState(false);
     const navigate = useNavigate();
     const onSubmit = (data) => {
-        console.log(data);
-        navigate("/");
-        return
+        AuthService.register(data)
+            .then((res) => {
+                if(res.data.status == "err"){
+                    alert(res.data.err)
+                }
+                else{
+                    navigate("/login");
+                }
+            });
+        
     }
     return (
         <div className='registerForm'>

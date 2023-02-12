@@ -2,12 +2,13 @@ import React from 'react';
 import '../styles/loginForm.scss'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
+import AuthService from '../services/AuthService';
 const LoginFormComponent = () => {
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
     const onSubmit = (data) => {
-        console.log(data)
-        navigate("/")
+        AuthService.login(data)
+        navigate("/");
     }
 
     return (
@@ -20,7 +21,7 @@ const LoginFormComponent = () => {
                 </div>
                 <div className='form_box'>
                     <label className='form_box-label'>Password</label>
-                    <input {...register('password')}/>
+                    <input {...register('password')} type="password"/>
                 </div>
                 
                 <input type='submit'/>
