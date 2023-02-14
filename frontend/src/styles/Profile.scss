@@ -1,0 +1,20 @@
+.profile{
+    margin-top: 50px;
+    margin-left: 40px;
+    .change{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 150px;
+        height: 50px;
+        color: white;
+        border: 1px solid black;
+        background-color: rgb(24, 172, 24);
+        cursor: pointer;
+
+        &:hover{
+            background-color: rgb(46, 184, 46);
+        }
+    }
+
+}

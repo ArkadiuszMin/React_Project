@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require("bcrypt")
+const jwt = require('jsonwebtoken')
 
 let sql = require('../db.js');
 
@@ -13,14 +14,23 @@ router.post("/login", async (req, res) => {
     if(user == null){
         return res.status(400).send({ status: "FAILED", err: "INVALID_LOGIN"})
     }
+    try{
+        token = jwt.sign(
+            {id: user.id},
+            process.env.SECRET,
+            {expiresIn: "24h"}
+        )
+    }
+    catch(err){
+        return res.send({status: "ERROR", err: "INTERNAL_ERROR"})
+    }
+    
     bcrypt.compare(req.body.password, user.password, (err, isValid) => {
         if(isValid){
-            console.log("VALID")
-            return res.status(200).send({ status: "OK"})
+            return res.status(200).send({ status: "OK", token: token})
 
         }
         else{
-            console.log("ERROR")
             return res.status(400).send({ status: "FAILED", err: "INVALID_LOGIN"})
         }
     })
@@ -43,10 +53,8 @@ router.post("/register", (req, res) => {
         if(exists){
             return res.send({ status: "FAILED", err: "USER_EXISTS"})
         }
-        sql.query(`INSERT INTO users (username, email, password) VALUES ('${username}', '${email}', '${hash}')`, (err, sqlres) => {
-            if (err) return res.status(400).send({ status: "FAILED", err: "INTERNAL_ERROR"})
-            return res.status(200).send({ status: "OK"})
-        })
+        let added = await createUser(username, email, hash)
+        if (!added) return res.status(400).send({ status: "FAILED", err: "INTERNAL_ERROR"})
         return res.status(200).send({ status: "OK"})
 
     }).catch((err) => {
@@ -75,6 +83,15 @@ let getUserByEmail = (email) => {
         sql.query(`SELECT * FROM users WHERE email = '${email}'`, (err, res) => {
             if (err || res.length==0) return resolve(null)
             return resolve(res[0])
+        })
+    })
+}
+
+let createUser = (username, email, hash) => {
+    return new Promise((resolve, reject) => {
+        sql.query(`INSERT INTO users (username, email, password) VALUES ('${username}', '${email}', '${hash}')`, (err, sqlres) => {
+            if (err) return resolve(false)
+            return resolve(true)
         })
     })
 }

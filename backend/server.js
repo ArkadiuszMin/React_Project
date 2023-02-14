@@ -16,6 +16,9 @@ let sql = require('./db.js');
 const authRoute = require('./routes/auth')
 app.use('/auth', authRoute)
 
+const profileRoute = require("./routes/profile")
+app.use('/profile', profileRoute)
+
 app.get("/", (req, res) => {
     res.send({ status: "OK" })
 })

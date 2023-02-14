@@ -1,14 +1,14 @@
 import axios from 'axios'
 
-const URL = "http://localhost:4000"
+const URL = "http://localhost:4000/auth"
 
 const AuthService = {
     login: (user) => {
-        return axios.post(`${URL}/auth/login`, user)
+        return axios.post(`${URL}/login`, user)
     },
 
     register: (user) =>{
-        return axios.post(`${URL}/auth/register`, user)
+        return axios.post(`${URL}/register`, user)
     }
 }
 

@@ -6,7 +6,7 @@ const NavbarComponent = () => {
     return (
     <div className='navbar'>
         <div className='container'>
-            <div className='container_logo'>Tripseratops</div>
+            <div className='container_logo' onClick={() => navigate("/")}>Tripseratops</div>
             <div className='container_buttons'>
                 <div className='container_buttons-single' onClick = {() => navigate("/login")}>Login</div>
                 <div className='container_buttons-single' onClick = {() => navigate("/register")}>Register</div>

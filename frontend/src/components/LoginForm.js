@@ -8,7 +8,15 @@ const LoginFormComponent = () => {
     const navigate = useNavigate();
     const onSubmit = (data) => {
         AuthService.login(data)
-        navigate("/");
+            .then((res) => {
+                if(res.data.status == "OK"){
+                    localStorage.setItem("token", `bearer ${res.data.token}`)
+                    navigate("/profile")
+                }
+                else{
+                    alert("incorrect password or email")
+                }
+            })
     }
 
     return (
