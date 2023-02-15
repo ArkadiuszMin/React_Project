@@ -40,9 +40,7 @@ const RegisterFormComponent = () => {
                         })}/>
                         {errors.password && <p>Password must cotain 6 - 15 characters, number and capital letter</p>}
                     </div>
-                    
                 </div>
-                
                 <div className='form_box'>
                     <label className='form_box-label'>Repeat password</label>
                     <div className='form_box-input'>
@@ -62,7 +60,6 @@ const RegisterFormComponent = () => {
                         })}/>
                         <p style={ diffPasswords ? {display: 'contents'} : {display: 'none'}}>Passwords don't match</p>
                     </div>
-                    
                 </div>
                 <div className='form_box'>
                     <label className='form_box-label'>email</label>
@@ -73,7 +70,12 @@ const RegisterFormComponent = () => {
                         })}/>
                         {errors.email && <p>Check your email</p>}
                     </div>
-                    
+                </div>
+                <div className='form_box'>
+                    <label className='form_box-label'>Place</label>
+                    <input {...register("place", {
+                        required: true
+                    })}/>
                 </div>
                 <input type="submit" className='form_submit'/>
 

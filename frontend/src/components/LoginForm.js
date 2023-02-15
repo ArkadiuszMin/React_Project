@@ -3,7 +3,10 @@ import '../styles/loginForm.scss'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
 import AuthService from '../services/AuthService';
+import { useContext } from 'react';
+import { logedContext } from '../App';
 const LoginFormComponent = () => {
+    const {loged, setLoged} = useContext(logedContext);
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
     const onSubmit = (data) => {
@@ -11,6 +14,7 @@ const LoginFormComponent = () => {
             .then((res) => {
                 if(res.data.status == "OK"){
                     localStorage.setItem("token", `bearer ${res.data.token}`)
+                    setLoged(true)
                     navigate("/profile")
                 }
                 else{
@@ -32,7 +36,7 @@ const LoginFormComponent = () => {
                     <input {...register('password')} type="password"/>
                 </div>
                 
-                <input type='submit'/>
+                <input type='submit' className='form_submit'/>
             </form>
         </div>
         

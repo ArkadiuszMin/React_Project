@@ -1,19 +1,62 @@
 .profile{
     margin-top: 50px;
     margin-left: 40px;
-    .change{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 150px;
-        height: 50px;
-        color: white;
-        border: 1px solid black;
-        background-color: rgb(24, 172, 24);
-        cursor: pointer;
+    
 
-        &:hover{
-            background-color: rgb(46, 184, 46);
+    .container{
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+        font-size: 20px;
+
+
+        &_place{
+            display: flex;
+            align-items: center;
+            column-gap: 10px;
+
+            &-change{
+                background-color: rgb(24, 172, 24);
+                padding: 8px;
+                font-size: 15px;
+                color: white;
+                border: 1px solid black;
+                cursor: pointer;
+                &:hover{
+                    background-color: rgb(46, 184, 46);
+                }
+            }
+
+            &-input{
+                width: 140px;
+                height: 30px;
+                border-radius: 5px;
+                border: 1px solid black;
+                box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.4);
+                outline: none;
+
+                &:focus{
+                    box-shadow: 0 0 2px 2px rgba(0, 129, 0, 0.4);
+                    border: 1px solid green;
+                }
+            }
+        }
+
+        &_change{
+            font-size: 19px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 150px;
+            height: 50px;
+            color: white;
+            border: 1px solid black;
+            background-color: rgb(24, 172, 24);
+            cursor: pointer;
+    
+            &:hover{
+                background-color: rgb(46, 184, 46);
+            }
         }
     }
 

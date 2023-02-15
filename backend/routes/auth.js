@@ -44,7 +44,7 @@ router.post("/register", (req, res) => {
         return res.status(400).send({ status: "FAILED", err: "PASSWORDS_DON'T_MATCH"})
     }
 
-    let {username, password, email, ...body} = req.body;
+    let {username, password, email, place, ...body} = req.body;
 
     bcrypt.genSalt(10).then((salt) => {
         return bcrypt.hash(req.body.password, salt)
@@ -53,7 +53,7 @@ router.post("/register", (req, res) => {
         if(exists){
             return res.send({ status: "FAILED", err: "USER_EXISTS"})
         }
-        let added = await createUser(username, email, hash)
+        let added = await createUser(username, email, hash, place)
         if (!added) return res.status(400).send({ status: "FAILED", err: "INTERNAL_ERROR"})
         return res.status(200).send({ status: "OK"})
 
@@ -87,9 +87,9 @@ let getUserByEmail = (email) => {
     })
 }
 
-let createUser = (username, email, hash) => {
+let createUser = (username, email, hash, place) => {
     return new Promise((resolve, reject) => {
-        sql.query(`INSERT INTO users (username, email, password) VALUES ('${username}', '${email}', '${hash}')`, (err, sqlres) => {
+        sql.query(`INSERT INTO users (username, email, password, place) VALUES ('${username}', '${email}', '${hash}', '${place}')`, (err, sqlres) => {
             if (err) return resolve(false)
             return resolve(true)
         })

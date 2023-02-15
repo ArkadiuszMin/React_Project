@@ -7,12 +7,55 @@ import { useNavigate } from 'react-router-dom';
 const ProfileComponent = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState({});
+    const [changePlace, setChangePlace] = useState(false);
+    const [inputValue, setInputValue] = useState("");
+
+    let placeDisplay = () => {
+        if(!changePlace){
+            return (
+                <div className='container_place'>
+                    <div className = 'container_box'> <b>place:</b> {user.place}</div>
+                    <div className='container_place-change' onClick={() => setChangePlace(!changePlace)}>Change</div>
+                </div>
+            )
+        }
+        return(
+            <div className='container_place'>
+                <input className='container_place-input' value={inputValue} onChange={(event) => {
+                    setInputValue(event.target.value)
+                    }}/>
+                <div className='container_place-change' onClick={()=>{
+                    setInputValue("") 
+                    setChangePlace(!changePlace)
+                    }}>Cancel</div>
+                <div className='container_place-change' onClick={() => {
+                    ProfileService.changePlace({place: inputValue})
+                        .then((res) => {
+                            if(res.data.status != "OK") alert("Something went wrong")
+                            else checkUser()
+                        })
+                    
+                    setInputValue("")
+                    setChangePlace(!changePlace)
+
+                }}>Confirm</div>
+            </div>
+        )
+    }
 
     useEffect(() => {
         let token = localStorage.getItem("token")
         if(!token){
             return navigate("/")
         }
+        checkUser();
+
+        setChangePlace(false)
+        setInputValue("")
+
+    }, [])
+
+    let checkUser = () => {
         ProfileService.checkUser()
             .then((res) => {
                 if(res.data.status=="OK"){
@@ -23,20 +66,20 @@ const ProfileComponent = () => {
                     alert("ERROR OCCURED")
                     navigate("/")
                 }
-            })
-
-    }, [])
+            })        
+    }
 
 
 
     return (
         <div className='profile'>
-            <h1> Welcome {user.username}! </h1>
-            <h3>ID: {user.id}</h3>
-            <h3>email: {user.email}</h3>
-            <h3>place: (place)</h3>
-            <div className='change'>Change password</div>
-            
+            <div className='container'>
+                <h1> Welcome {user.username}! </h1>
+                <div className='container_box'> <b>ID:</b> {user.id} </div>
+                <div className='container_box'> <b>email:</b> {user.email} </div>
+                {placeDisplay()}
+                <div className='container_change' onClick={() => navigate("/changepassword")}>Change password</div>
+            </div>
         </div>
     );
 };
